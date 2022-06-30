@@ -6,16 +6,13 @@ import { ERC20 } from '../mrx/interface/ERC20';
 import { IERC20 } from '../mrx/interface/IERC20';
 import { IERC20Metadata } from '../mrx/interface/IERC20Metadata';
 import { Provider } from '../provider';
-import { NetworkType } from '../types';
 
 /** Class which can be used to interact with the Embers (MBRS) token contract */
 export default class Embers implements ERC20, IERC20, IERC20Metadata {
-  private network: NetworkType;
   private token: MetrixContract;
-  constructor(network: NetworkType, provider: Provider) {
-    this.network = network;
+  constructor(provider: Provider) {
     this.token = new MetrixContract(
-      CONTRACTS[network].Embers,
+      CONTRACTS[provider.network].Embers,
       provider,
       ABI.Embers,
       undefined
@@ -27,16 +24,32 @@ export default class Embers implements ERC20, IERC20, IERC20Metadata {
       owner,
       spender
     ]);
-    throw new Error('Method not implemented');
+    return !isNaN(Number(allowance ? allowance.toString() : undefined))
+      ? BigInt(allowance!.toString())
+      : BigInt(0);
   }
 
   async approve(spender: string, amount: bigint): Promise<Transaction> {
-    throw new Error('Method not implemented');
+    const tx = await this.token.send('approve(address,uint256)', [
+      spender,
+      `0x${amount.toString(16)}`
+    ]);
+    const getReceipts = this.token.provider.getTxReceipts(
+      tx,
+      this.token.abi,
+      this.token.address
+    );
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
   }
 
   async balanceOf(owner: string): Promise<bigint> {
     const balance = await this.token.call(`balanceOf(address)`, [owner]);
-    throw new Error('Method not implemented');
+    return !isNaN(Number(balance ? balance.toString() : undefined))
+      ? BigInt(balance!.toString())
+      : BigInt(0);
   }
 
   /**
@@ -52,7 +65,18 @@ export default class Embers implements ERC20, IERC20, IERC20Metadata {
    * @param amount the amount of MBRS tokens to burn
    */
   async burn(amount: bigint): Promise<Transaction> {
-    throw new Error('Method not implemented');
+    const tx = await this.token.send('burn(uint256)', [
+      `0x${amount.toString(16)}`
+    ]);
+    const getReceipts = this.token.provider.getTxReceipts(
+      tx,
+      this.token.abi,
+      this.token.address
+    );
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
   }
 
   /**
@@ -60,34 +84,81 @@ export default class Embers implements ERC20, IERC20, IERC20Metadata {
    * @param account the account to burn the MBRS tokens
    * @param amount the amount of MBRS tokens to burn
    */
-  async burnFrom(account: string, amount: bigint) {
-    throw new Error('Method not implemented');
+  async burnFrom(account: string, amount: bigint): Promise<Transaction> {
+    const tx = await this.token.send('burnFrom(address,uint256)', [
+      account,
+      `0x${amount.toString(16)}`
+    ]);
+    const getReceipts = this.token.provider.getTxReceipts(
+      tx,
+      this.token.abi,
+      this.token.address
+    );
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
   }
 
   /**
    * Create MBRS tokens by burning MRX
    */
   async createEmbers(): Promise<Transaction> {
-    throw new Error('Method not implemented');
+    const tx = await this.token.send('createEmbers()', []);
+    const getReceipts = this.token.provider.getTxReceipts(
+      tx,
+      this.token.abi,
+      this.token.address
+    );
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
   }
 
   async decimals(): Promise<number> {
     const dec = await this.token.call(`decimals()`, []);
-    throw new Error('Method not implemented');
+    return !isNaN(Number(dec ? dec.toString() : undefined))
+      ? Number(dec!)
+      : Number(0);
   }
 
   async decreaseAllowance(
     spender: string,
     amount: bigint
   ): Promise<Transaction> {
-    throw new Error('Method not implemented');
+    const tx = await this.token.send('decreaseAllowance(address,uint256)', [
+      spender,
+      `0x${amount.toString(16)}`
+    ]);
+    const getReceipts = this.token.provider.getTxReceipts(
+      tx,
+      this.token.abi,
+      this.token.address
+    );
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
   }
 
   async increaseAllowance(
     spender: string,
     amount: bigint
   ): Promise<Transaction> {
-    throw new Error('Method not implemented');
+    const tx = await this.token.send('increaseAllowance(address,uint256)', [
+      spender,
+      `0x${amount.toString(16)}`
+    ]);
+    const getReceipts = this.token.provider.getTxReceipts(
+      tx,
+      this.token.abi,
+      this.token.address
+    );
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
   }
 
   /**
@@ -95,36 +166,78 @@ export default class Embers implements ERC20, IERC20, IERC20Metadata {
    */
   async minBurn(): Promise<bigint> {
     const min = await this.token.call(`minBurn()`, []);
-    throw new Error('Method not implemented');
+    return !isNaN(Number(min ? min.toString() : undefined))
+      ? BigInt(min!.toString())
+      : BigInt(0);
   }
 
   /**
    * Create MBRS tokens by burning MRX
    */
   async mint(): Promise<Transaction> {
-    throw new Error('Method not implemented');
+    const tx = await this.token.send('mint()', []);
+    const getReceipts = this.token.provider.getTxReceipts(
+      tx,
+      this.token.abi,
+      this.token.address
+    );
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
   }
 
   async name(): Promise<string> {
-    throw new Error('Method not implemented');
+    const n = await this.token.call(`name()`, []);
+    return n ? n.toString() : '';
   }
 
   async symbol(): Promise<string> {
     const sym = await this.token.call(`symbol()`, []);
-    throw new Error('Method not implemented');
+    return sym ? sym.toString() : '';
   }
+
   async totalSupply(): Promise<bigint> {
     const total = await this.token.call(`totalSupply()`, []);
-    throw new Error('Method not implemented');
+    return !isNaN(Number(total ? total.toString() : undefined))
+      ? BigInt(total!.toString())
+      : BigInt(0);
   }
+
   async transfer(recipient: string, amount: bigint): Promise<Transaction> {
-    throw new Error('Method not implemented');
+    const tx = await this.token.send('transfer(address,uint256)', [
+      recipient,
+      `0x${amount.toString(16)}`
+    ]);
+    const getReceipts = this.token.provider.getTxReceipts(
+      tx,
+      this.token.abi,
+      this.token.address
+    );
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
   }
+
   async transferFrom(
     sender: string,
     recipient: string,
     amount: bigint
   ): Promise<Transaction> {
-    throw new Error('Method not implemented');
+    const tx = await this.token.send('transferFrom(address,uint256)', [
+      sender,
+      recipient,
+      `0x${amount.toString(16)}`
+    ]);
+    const getReceipts = this.token.provider.getTxReceipts(
+      tx,
+      this.token.abi,
+      this.token.address
+    );
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
   }
 }
