@@ -1,5 +1,5 @@
 /**
- * Interface that represents a Resolver, which implements EIP165
+ * Interface that represents a smart contract, which implements EIP165
  *
  * @interface
  */

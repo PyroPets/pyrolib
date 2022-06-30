@@ -2,7 +2,7 @@ import { Transaction } from '../Transaction';
 import { IERC165 } from './IERC165';
 
 /**
- * Interface that represents a contract, which implements EIP721
+ * Interface that represents a smart contract, which implements EIP721
  *
  * @interface
  */
@@ -96,7 +96,7 @@ export interface IERC721 extends IERC165 {
   /**
    * Returns if the `operator` is allowed to manage all of the assets of `owner`.
    *
-   * See {setApprovalForAll}
+   * See {@link setApprovalForAll}
    */
   isApprovedForAll(owner: string, operator: string): Promise<boolean>;
 
