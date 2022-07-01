@@ -59,7 +59,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async balanceOf(owner: string): Promise<bigint> {
     const balance = await this.core.call(`balanceOf(address)`, [owner]);
     return !isNaN(Number(balance ? balance.toString() : undefined))
-      ? BigInt(balance!.toString())
+      ? BigInt(
+          balance!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(0);
   }
 
@@ -121,7 +123,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
       tokenId.startsWith('0x') ? tokenId : `0x${tokenId}`
     ]);
     return !isNaN(Number(rates ? rates.toString() : undefined))
-      ? BigInt(rates!.toString())
+      ? BigInt(
+          rates!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(-1);
   }
 
@@ -160,7 +164,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async gen0Cap(): Promise<bigint> {
     const cap = await this.core.call(`gen0Cap()`, []);
     return !isNaN(Number(cap ? cap.toString() : undefined))
-      ? BigInt(cap!.toString())
+      ? BigInt(
+          cap!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(0);
   }
 
@@ -170,7 +176,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async gen0Count(): Promise<bigint> {
     const count = await this.core.call(`gen0Count()`, []);
     return !isNaN(Number(count ? count.toString() : undefined))
-      ? BigInt(count!.toString())
+      ? BigInt(
+          count!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(0);
   }
 
@@ -180,7 +188,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async generationCost(): Promise<bigint> {
     const cost = await this.core.call(`generationCost()`, []);
     return !isNaN(Number(cost ? cost.toString() : undefined))
-      ? BigInt(cost!.toString())
+      ? BigInt(
+          cost!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(-1);
   }
 
@@ -193,7 +203,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
       tokenId.startsWith('0x') ? tokenId : `0x${tokenId}`
     ]);
     return !isNaN(Number(gen ? gen.toString() : undefined))
-      ? BigInt(gen!.toString())
+      ? BigInt(
+          gen!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(-1);
   }
 
@@ -250,7 +262,7 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
    * @param tokenId the pyro tokenId
    */
   async getPyro(tokenId: string): Promise<Pyro> {
-    let pyro: Pyro = {
+    const pyro: Pyro = {
       donorA: BigInt(0),
       donorB: BigInt(0),
       generation: BigInt(0),
@@ -287,7 +299,7 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
    * @param tokenId the pyro tokenId
    */
   async getSaleAuction(tokenId: string): Promise<Auction> {
-    let auction: Auction = {
+    const auction: Auction = {
       tokenId: ethers.constants.HashZero,
       winningBid: BigInt(0),
       minimumBid: BigInt(0),
@@ -316,7 +328,7 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
    * @param tokenId the pyro tokenId
    */
   async getStokingAuction(tokenId: string): Promise<Auction> {
-    let auction: Auction = {
+    const auction: Auction = {
       tokenId: ethers.constants.HashZero,
       winningBid: BigInt(0),
       minimumBid: BigInt(0),
@@ -386,7 +398,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async lastAte(tokenId: string): Promise<bigint> {
     const ate = await this.core.call(`lastAte(uint256)`, [tokenId]);
     return !isNaN(Number(ate ? ate.toString() : undefined))
-      ? BigInt(ate!.toString())
+      ? BigInt(
+          ate!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(-1);
   }
 
@@ -397,7 +411,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async lastGen0Mints(minter: string): Promise<bigint> {
     const minted = await this.core.call(`lastGen0Mints(address)`, [minter]);
     return !isNaN(Number(minted ? minted.toString() : undefined))
-      ? BigInt(minted!.toString())
+      ? BigInt(
+          minted!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(-1);
   }
 
@@ -408,7 +424,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async lastPlayed(tokenId: string): Promise<bigint> {
     const played = await this.core.call(`lastPlayed(uint256)`, [tokenId]);
     return !isNaN(Number(played ? played.toString() : undefined))
-      ? BigInt(played!.toString())
+      ? BigInt(
+          played!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(-1);
   }
 
@@ -469,7 +487,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
       tokenId
     ]);
     return !isNaN(Number(cooldown ? cooldown.toString() : undefined))
-      ? BigInt(cooldown!.toString())
+      ? BigInt(
+          cooldown!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(-1);
   }
 
@@ -480,7 +500,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async pyroGenesisCosts(tokenId: string): Promise<bigint> {
     const cost = await this.core.call(`pyroGenesisCosts(uint256)`, [tokenId]);
     return !isNaN(Number(cost ? cost.toString() : undefined))
-      ? BigInt(cost!.toString())
+      ? BigInt(
+          cost!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(-1);
   }
 
@@ -491,7 +513,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async pyroLevel(tokenId: string): Promise<bigint> {
     const level = await this.core.call(`pyroLevel(uint256)`, [tokenId]);
     return !isNaN(Number(level ? level.toString() : undefined))
-      ? BigInt(level!.toString())
+      ? BigInt(
+          level!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(-1);
   }
 
@@ -500,7 +524,7 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
    * @param tokenId the pyro tokenId
    */
   async pyros(tokenId: string): Promise<Pyro> {
-    let pyro: Pyro = {
+    const pyro: Pyro = {
       donorA: BigInt(0),
       donorB: BigInt(0),
       generation: BigInt(0),
@@ -685,7 +709,9 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   async stokingBaseCost(): Promise<bigint> {
     const cost = await this.core.call(`stokingBaseCost()`, []);
     return !isNaN(Number(cost ? cost.toString() : undefined))
-      ? BigInt(cost!.toString())
+      ? BigInt(
+          cost!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(0);
   }
 
@@ -717,14 +743,16 @@ export default class PyroCore implements IERC165, IERC721, IERC721Enumerable {
   }
 
   async tokenURI(tokenId: string): Promise<string> {
-    const uri = await this.core.call(`tokenURI(uint256)`, []);
+    const uri = await this.core.call(`tokenURI(uint256)`, [tokenId]);
     return uri ? uri.toString() : '';
   }
 
   async totalSupply(): Promise<bigint> {
     const total = await this.core.call(`totalSupply()`, []);
     return !isNaN(Number(total ? total.toString() : undefined))
-      ? BigInt(total!.toString())
+      ? BigInt(
+          total!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(0);
   }
 

@@ -25,7 +25,9 @@ export default class Embers implements ERC20, IERC20, IERC20Metadata {
       spender
     ]);
     return !isNaN(Number(allowance ? allowance.toString() : undefined))
-      ? BigInt(allowance!.toString())
+      ? BigInt(
+          allowance!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(0);
   }
 
@@ -48,7 +50,9 @@ export default class Embers implements ERC20, IERC20, IERC20Metadata {
   async balanceOf(owner: string): Promise<bigint> {
     const balance = await this.token.call(`balanceOf(address)`, [owner]);
     return !isNaN(Number(balance ? balance.toString() : undefined))
-      ? BigInt(balance!.toString())
+      ? BigInt(
+          balance!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(0);
   }
 
@@ -119,7 +123,9 @@ export default class Embers implements ERC20, IERC20, IERC20Metadata {
   async decimals(): Promise<number> {
     const dec = await this.token.call(`decimals()`, []);
     return !isNaN(Number(dec ? dec.toString() : undefined))
-      ? Number(dec!)
+      ? Number(
+          dec! /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : Number(0);
   }
 
@@ -167,7 +173,9 @@ export default class Embers implements ERC20, IERC20, IERC20Metadata {
   async minBurn(): Promise<bigint> {
     const min = await this.token.call(`minBurn()`, []);
     return !isNaN(Number(min ? min.toString() : undefined))
-      ? BigInt(min!.toString())
+      ? BigInt(
+          min!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(0);
   }
 
@@ -200,7 +208,9 @@ export default class Embers implements ERC20, IERC20, IERC20Metadata {
   async totalSupply(): Promise<bigint> {
     const total = await this.token.call(`totalSupply()`, []);
     return !isNaN(Number(total ? total.toString() : undefined))
-      ? BigInt(total!.toString())
+      ? BigInt(
+          total!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
       : BigInt(0);
   }
 
