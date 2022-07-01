@@ -30,7 +30,7 @@ export interface IERC721 extends IERC165 {
    * - `from` cannot be the zero address.
    * - `to` cannot be the zero address.
    * - `tokenId` token must exist and be owned by `from`.
-   * - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.
+   * - If the caller is not `from`, it must be have been allowed to move this token by either {@link approve} or {@link setApprovalForAll}.
    * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
    *
    * Emits a {Transfer} event.
@@ -44,14 +44,14 @@ export interface IERC721 extends IERC165 {
   /**
    * Transfers `tokenId` token from `from` to `to`.
    *
-   * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.
+   * WARNING: Usage of this method is discouraged, use {@link safeTransferFrom} whenever possible.
    *
    * Requirements:
    *
    * - `from` cannot be the zero address.
    * - `to` cannot be the zero address.
    * - `tokenId` token must be owned by `from`.
-   * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+   * - If the caller is not `from`, it must be approved to move this token by either {@link approve} or {@link setApprovalForAll}.
    *
    * Emits a {Transfer} event.
    */
@@ -83,7 +83,7 @@ export interface IERC721 extends IERC165 {
 
   /**
    * Approve or remove `operator` as an operator for the caller.
-   * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.
+   * Operators can call {@link transferFrom} or {@link safeTransferFrom} for any token owned by the caller.
    *
    * Requirements:
    *
@@ -108,7 +108,7 @@ export interface IERC721 extends IERC165 {
    * - `from` cannot be the zero address.
    * - `to` cannot be the zero address.
    * - `tokenId` token must exist and be owned by `from`.
-   * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+   * - If the caller is not `from`, it must be approved to move this token by either {@link approve} or {@link setApprovalForAll}.
    * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
    *
    * Emits a {Transfer} event.
